@@ -1,0 +1,10 @@
+fastapi==0.110.0
+uvicorn==0.29.0
+python-multipart==0.0.9
+pillow==10.2.0
+colorthief==0.2.1
+openai==1.14.2
+requests==2.31.0
+numpy==1.26.4
+scikit-learn==1.4.1.post1
+python-dotenv==1.0.1

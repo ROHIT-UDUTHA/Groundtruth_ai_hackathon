@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CreativeForge — Generate Premium Ads</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#7c3aed;
+      --muted:#9aa4b2;
+      --white:#ffffff;
+      --success:#16a34a;
+    }
+    html,body{height:100%;margin:0;font-family:Inter, Roboto, Arial, sans-serif;background:linear-gradient(180deg,#071226 0%, #081226 100%);color:var(--white)}
+    .container{max-width:920px;margin:36px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    h1{margin:0 0 10px;font-size:22px}
+    p.lead{color:var(--muted);margin-top:0;margin-bottom:18px}
+    .row{display:flex;gap:18px;flex-wrap:wrap}
+    .col{flex:1;min-width:240px}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type=file]{display:block}
+    .controls{display:flex;gap:12px;align-items:center;margin-top:12px}
+    select,input[type=text]{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--white)}
+    button.primary{background:linear-gradient(90deg,var(--accent),#5b21b6);border:none;color:white;padding:12px 18px;border-radius:10px;cursor:pointer;font-weight:600}
+    button.primary:disabled{opacity:0.55;cursor:not-allowed}
+    .muted{color:var(--muted);font-size:13px}
+    .small{font-size:13px;color:var(--muted)}
+    .preview{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .box{border-radius:10px;padding:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+    .center{text-align:center}
+    .progress{height:12px;background:rgba(255,255,255,0.04);border-radius:8px;overflow:hidden;margin-top:8px}
+    .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#3b82f6)}
+    .download-link{display:inline-block;margin-top:12px;background:var(--success);color:#062018;padding:10px 14px;border-radius:8px;font-weight:700;text-decoration:none}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .note{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);margin-top:12px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CreativeForge — AI Creative Studio</h1>
+    <p class="lead">Upload a brand <strong>logo</strong> and a <strong>product image</strong>. The system will generate <strong>10</strong> premium ad creatives with captions blended into each image and return a downloadable ZIP.</p>
+
+    <div class="row">
+      <div class="col box">
+        <label for="logo">Brand Logo (PNG / JPG)</label>
+        <input id="logo" type="file" accept="image/png,image/jpeg" />
+
+        <div style="height:12px"></div>
+
+        <label for="product">Product Image (PNG / JPG)</label>
+        <input id="product" type="file" accept="image/png,image/jpeg" />
+
+        <div style="height:12px"></div>
+
+        <label for="brand">Brand Name (optional)</label>
+        <input id="brand" type="text" placeholder="Acme Co" />
+
+        <div style="height:12px"></div>
+
+        <label for="tone">Tone</label>
+        <select id="tone">
+          <option value="premium" selected>Premium</option>
+          <option value="luxury">Luxury</option>
+          <option value="minimal">Minimal</option>
+          <option value="playful">Playful</option>
+        </select>
+
+        <div style="height:12px"></div>
+
+        <label for="preset">Caption Style Preset</label>
+        <select id="preset">
+          <option value="B1">B1 — Premium Minimal</option>
+          <option value="B3" selected>B3 — Premium Accent</option>
+          <option value="B4">B4 — Premium Luxe</option>
+        </select>
+
+        <div class="controls">
+          <button id="generateBtn" class="primary">Generate 10 Creatives</button>
+          <div id="status" class="small muted">Ready</div>
+        </div>
+
+        <div class="note small">Note: This UI calls <code>/generate</code> on the backend running at <strong>http://localhost:8000</strong>. Make sure the backend is running.</div>
+      </div>
+
+      <div class="col box center">
+        <div>
+          <strong>Preview</strong>
+          <div class="muted">Sample thumbnails will appear here after generation.</div>
+        </div>
+
+        <div id="preview" class="preview" style="margin-top:12px"></div>
+
+        <div id="progressWrap" style="display:none;margin-top:18px">
+          <div class="small muted">Generating — this may take 20–60 seconds depending on API latency</div>
+          <div class="progress"><div id="bar" class="bar"></div></div>
+        </div>
+
+        <div id="downloadArea" style="display:none" class="center">
+          <a id="downloadLink" class="download-link" href="#">Download creative_pack.zip</a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="muted">CreativeForge — Local-only demo. Keep API key in environment before running backend.</div>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
